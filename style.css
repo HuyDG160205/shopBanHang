@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  font-family: "Times New Roman", Times, serif;
+}
+.image {
+  height: 200px;
+  overflow: hidden;
+  background-color: white;
+}
+
+.image img {
+  height: 100%;
+}
+
+.large-description {
+  height: 100px;
+  max-height: 300px;
+  min-height: 100px;
+}
+.item {
+  transition: 0.3s;
+}
+
+.item:hover {
+  background-color: aqua;
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.item.active {
+  background-color: aqua;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.info-sm {
+  height: 100px;
+}
