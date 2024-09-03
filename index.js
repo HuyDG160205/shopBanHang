@@ -9,12 +9,10 @@ document.querySelector("#add").addEventListener("click", (event) => {
     id: new Date().toISOString(),
   };
 
-  if (item.name === "" || item.value === "" || item.amount === "") {
+  if (!item.name || !item.value || !item.amount) {
     alert("Vui lòng điền đầy đủ thông tin");
     return;
   }
-
-  console.log(item);
 
   addItemToUI(item);
 
@@ -46,6 +44,7 @@ function addItemToUI(item) {
                 </div>
               </div>`;
 
+  // với mỗi item được add vào UI và LS, Mỗi cái listen
   newCard.addEventListener("click", (event) => {
     // remove active class from all items
     document
@@ -109,11 +108,22 @@ document.querySelector("#delete").addEventListener("click", (event) => {
     event.target.dataset.id = "";
     return;
   }
-  let isConfirmed = confirm(`Bạn có muốn xóa hết không?"`);
+
+  let isConfirmed = confirm(`Bạn có muốn xóa hết item trong filter không?`);
 
   if (isConfirmed) {
+    let inputValue = document.querySelector("#filter").value;
+
+    let list = getlist();
+    list = list.filter((item) =>
+      item.name.toLowerCase().includes(inputValue.toLowerCase())
+    );
+    console.log(list);
+
     document.querySelector(".list").innerHTML = "";
-    localStorage.removeItem("listItem");
+    list.forEach((item) => {
+      removeItemFromLS(item.id);
+    });
   }
 });
 
@@ -133,12 +143,15 @@ document.querySelector("#clear").addEventListener("click", (event) => {
   document.querySelector("#delete").setAttribute("data-id", "");
 });
 
+// filter
 document.querySelector(".btn-filter").addEventListener("click", (event) => {
   event.preventDefault();
   let inputValue = document.querySelector("#filter").value;
 
   let list = getlist();
-  list = list.filter((item) => item.name.includes(inputValue));
+  list = list.filter((item) =>
+    item.name.toLowerCase().includes(inputValue.toLowerCase())
+  );
   document.querySelector(".list").innerHTML = "";
   list.forEach((item) => addItemToUI(item));
 });
