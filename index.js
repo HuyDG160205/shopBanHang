@@ -20,7 +20,7 @@ document.querySelector("#add").addEventListener("click", (event) => {
 });
 
 function addItemToUI(item) {
-  const { name, value, amount, description, id } = item;
+  const { name, value, amount, description, id, img } = item;
 
   let newCard = document.createElement("div");
   newCard.className = `item col-3 m-4 p-0 border border-1 border-dark`;
@@ -28,7 +28,7 @@ function addItemToUI(item) {
   newCard.innerHTML = `<div class="image d-flex justify-content-center">
                 <img
                 class="object-fit-fill"
-                  src="https://vn-test-11.slatic.net/p/ee7eb2c93a886097aed4a1a0cfb12ff6.jpg"
+                  src="${img || "./asd.png"}"
                   alt=""
                 />
               </div>
@@ -54,6 +54,13 @@ function addItemToUI(item) {
     changeEverythingInInfo(item);
     document.querySelector("#delete").setAttribute("data-id", id);
     newCard.classList.add("active");
+
+    // show the upload image form
+    document.querySelector(".btn-upload").setAttribute("data-id", id);
+    document
+      .querySelector(".btn-upload")
+      .parentElement.classList.remove("d-none");
+    document.querySelector("#image").value = img || "";
   });
 
   document.querySelector(".list").appendChild(newCard);
@@ -144,6 +151,7 @@ document.querySelector("#clear").addEventListener("click", (event) => {
   document.querySelectorAll(".item").forEach((item) => {
     item.classList.remove("active");
   });
+  document.querySelector(".btn-upload").parentElement.classList.add("d-none");
 });
 
 // filter
@@ -162,3 +170,22 @@ document.querySelector(".btn-filter").addEventListener("click", (event) => {
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+document.querySelector(".btn-upload").addEventListener("click", (event) => {
+  event.preventDefault();
+  let inputValue = document.querySelector("#image").value;
+
+  //change UI image
+  document
+    .querySelector(`[id="${event.target.dataset.id}"]`)
+    .children[0].children[0].setAttribute("src", inputValue);
+
+  //change LS image
+  let list = getlist();
+  list.forEach((item) => {
+    if (item.id == event.target.dataset.id) {
+      item.img = inputValue;
+    }
+  });
+  localStorage.setItem("listItem", JSON.stringify(list));
+});

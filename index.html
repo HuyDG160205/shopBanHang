@@ -14,9 +14,9 @@
   </head>
   <body>
     <div class="container bg-info bg-opacity-50">
-      <div class="d-flex justify-content-between vh-100">
+      <div class="d-flex justify-content-between">
         <!-- information -->
-        <div class="p-3 bg-secondary bg-opacity-50 information w-25">
+        <div class="p-3 bg-secondary bg-opacity-50 information w-25 vh-100">
           <h4 class="text-center">Thông tin sản phẩm</h4>
           <!-- tạo form -->
           <form class="input-form">
@@ -79,6 +79,16 @@
                 CLEAR
               </button>
             </div>
+          </form>
+
+          <form action="" class="d-flex mt-3 gap-3 d-none">
+            <input
+              type="text"
+              id="image"
+              class="form-control"
+              placeholder="Image url"
+            />
+            <button class="btn btn-info btn-upload">Upload</button>
           </form>
         </div>
 
