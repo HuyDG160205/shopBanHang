@@ -141,6 +141,9 @@ document.querySelector("#clear").addEventListener("click", (event) => {
     description: "",
   });
   document.querySelector("#delete").setAttribute("data-id", "");
+  document.querySelectorAll(".item").forEach((item) => {
+    item.classList.remove("active");
+  });
 });
 
 // filter
